@@ -178,9 +178,13 @@ void GpioMcuWrite( Gpio_t *obj, uint32_t value )
     {
         GPIO_ResetBits( obj->port, obj->pinIndex );
     }
-    else
+    else if(value == 1)
     {
         GPIO_SetBits( obj->port, obj->pinIndex );
+    }
+    else
+    {
+        GPIO_ToggleBits( obj->port, obj->pinIndex );
     }
 }
 

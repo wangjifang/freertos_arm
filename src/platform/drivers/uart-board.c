@@ -151,7 +151,7 @@ uint8_t UartMcuPutChar( Uart_t *obj, uint8_t data )
 	FifoPush( &obj->FifoTx, data );
 	__enable_irq( );
 	// Enable the USART Transmit interrupt
-	USART_ITConfig( USART2, USART_IT_TXE, ENABLE );
+	USART_ITConfig( USART1, USART_IT_TXE, ENABLE );
 	return 0; // OK
     }
     return 1; // Busy

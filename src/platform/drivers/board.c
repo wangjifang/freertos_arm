@@ -55,6 +55,25 @@ static void BoardUnusedIoInit( void );
 */
 static bool McuInitialized = FALSE;
 
+void led_init(void)
+{
+    GpioInit(&Led1, LED_1, PIN_OUTPUT, PIN_PUSH_PULL, PIN_NO_PULL, 1);
+}
+
+void led_open(void)
+{
+    GpioWrite(&Led1, 0);
+}
+
+void led_close(void)
+{
+    GpioWrite(&Led1, 1);
+}
+
+void led_toggle(void)
+{
+    GpioWrite(&Led1, 2);
+}
 
 void BoardInitPeriph( void )
 {
@@ -95,6 +114,7 @@ void BoardInitMcu( void )
             TimerHwInit( );
         }
         McuInitialized = TRUE;
+        led_init();
     }
     BoardUnusedIoInit();
 }

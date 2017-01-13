@@ -5,11 +5,63 @@
 #include "app.h"
 #include "stack.h"
 
+
+static uint8_t *pcTextForTask1 = "Task1 is running\r\n";
+static uint8_t *pcTextForTask2 = "Task2 is running\t\n";
+
+void vTask1(void *pvParameters)
+{
+    uint8_t *pcTaskName = "Task 1 is running \r\n";
+    volatile uint32_t ul;
+    
+    for( ; ; )
+    {
+        led_open();
+        serial_write(UART_1, pcTaskName, 20);
+        for(ul = 0; ul < 100000; ul++)
+        {
+            
+        }
+    }
+}
+
+void vTask2(void *pvParameters)
+{
+    uint8_t *pcTaskName = "Task 2 is running \r\n";
+    volatile uint32_t ul;
+    
+    for( ; ; )
+    {
+        led_close();
+        serial_write(UART_1, pcTaskName, 20);
+        for(ul = 0; ul < 100000; ul++)
+        {
+            
+        }
+    }
+}
+
+void vTaskFunctin(void *pvParameters)
+{
+    uint8_t *pcTaskName;
+    volatile uint32_t ul;
+    
+    pcTaskName = (uint8_t *)pvParameters;
+    for( ; ; )
+    {
+        led_toggle();
+        serial_write(UART_1, pcTaskName, 20);
+        vTaskDelay(1000/portTICK_RATE_MS);
+    }
+}
+
 int main(void)
 {
     BoardInitMcu();
-    stack_init();
-    app_init();
+//    stack_init();
+//    app_init();
+    xTaskCreate(vTaskFunctin, "Task1", 100, (void *)pcTextForTask1, 1, NULL);
+    xTaskCreate(vTaskFunctin, "Task2", 100, (void *)pcTextForTask2, 2, NULL);
     vTaskStartScheduler();
     return 0;
 }

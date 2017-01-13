@@ -63,7 +63,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 /*!
  * Board MCU pins definitions
  */
-#define LED_1                                       PB_9
+#define LED_1                                       PA_15
 #define LED_2                                       PB_8
 #define LED_3                                       PB_5
 
@@ -212,5 +212,13 @@ uint32_t BoardGetRandomSeed( void );
  * \param [IN] id Pointer to an array that will contain the Unique ID
  */
 void BoardGetUniqueId( uint8_t *id );
+
+void led_init(void);
+
+void led_open(void);
+
+void led_close(void);
+
+void led_toggle(void);
 
 #endif // __BOARD_H__
